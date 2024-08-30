@@ -1,2 +1,0 @@
-0001, Charlie, Morningstar, Princess, 1234
-6666, Lucifer, Morningstar, Mr.,  666
