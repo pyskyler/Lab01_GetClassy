@@ -11,13 +11,13 @@ import static java.nio.file.StandardOpenOption.CREATE;
 public class PersonGenerator {
 
     public static void main(String[] args) {
-        ArrayList<String> persons = new ArrayList<>();
+        ArrayList<Person> persons = new ArrayList<>();
         String id;
         String firstName;
         String lastName;
         String title;
         int yearOfBirth;
-        String person;
+        Person person;
 
         String filename;
 
@@ -30,9 +30,9 @@ public class PersonGenerator {
             firstName = SafeInput.getNonZeroLenString(in, "What is this person's first name?");
             lastName = SafeInput.getNonZeroLenString(in, "What is this person's last name?");
             title = SafeInput.getNonZeroLenString(in, "What is this person's title?");
-            yearOfBirth = SafeInput.getInt(in, "What is this person's birth year?");
+            yearOfBirth = SafeInput.getRangedInt(in, "What is this person's birth year?",1940,2010);
 
-            person = String.format("%s, %s, %s, %s, %4d", id, firstName, lastName, title, yearOfBirth);
+            person = new Person(id, firstName, lastName, title, yearOfBirth);
             persons.add(person);
 
             addAnotherPerson = SafeInput.getYNConfirm(in, "Do you have another person to add?");
@@ -54,9 +54,10 @@ public class PersonGenerator {
 
             // Finally can write the file LOL!
 
-            for(String p : persons)
+            for(Person p : persons)
             {
-                writer.write(p, 0, p.length());  // stupid syntax for write rec
+                String pCsv = p.toCSV();
+                writer.write(pCsv, 0, pCsv.length());  // stupid syntax for write rec
                 // 0 is where to start (1st char) the write
                 // rec. length() is how many chars to write (all)
                 writer.newLine();  // adds the new line
