@@ -19,6 +19,8 @@ public class PersonReader {
 
         String id, firstName, lastName, title;
         int yob;
+        Person person;
+        ArrayList<Person> persons = new ArrayList<>();
 
         try
         {
@@ -50,10 +52,6 @@ public class PersonReader {
                 }
                 reader.close(); // must close the file to seal it and flush buffer
 
-                // Print header
-                System.out.printf("\n%-8s%-15s%-15s%-8s%-8s", "ID #", "Firstname", "Lastname", "Title", "YOB");
-                System.out.print("\n===============================================");
-
                 // Now process the lines in the arrayList
                 // Split the line into the fields by using split with a comma
                 // use trim to remove leading and trailing spaces
@@ -72,7 +70,9 @@ public class PersonReader {
                         lastName  = fields[2].trim();
                         title     = fields[3].trim();
                         yob       = Integer.parseInt(fields[4].trim());
-                        System.out.printf("\n%-8s%-15s%-15s%-6s%6d", id, firstName, lastName, title, yob);
+
+                       person = new Person(id, firstName, lastName, title, yob);
+                       persons.add(person);
                     }
                     else
                     {
@@ -97,6 +97,13 @@ public class PersonReader {
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+        // print header
+
+        System.out.printf("\n%-8s%-15s%-15s%-8s%-8s%n", "ID #", "Firstname", "Lastname", "Title", "YOB" +
+                "\n==================================================");
+        for (Person p : persons) {
+            System.out.println(p.formattedData());
         }
 
     }

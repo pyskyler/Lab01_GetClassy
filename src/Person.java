@@ -100,4 +100,11 @@ public class Person {
                 "  <yearOfBirth>" + yearOfBirth + "</yearOfBirth>\n" +
                 "</person>";
     }
+    /**
+     * Returns the person's data as a line in a formatted table
+     * @return the person's data as a line in a formatted table
+     */
+    public String formattedData() {
+        return String.format("%-8s%-15s%-15s%-6s%6d", id, firstName, lastName, title, yearOfBirth);
+    }
 }

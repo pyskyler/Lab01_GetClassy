@@ -57,4 +57,10 @@ class PersonTest {
                 </person>""";
         assertEquals(expectedXml, person.toXML());
     }
+
+    @Test
+    void formattedData() {
+        String expectedData = "000001  Charlie        Morningstar    Princess  2000";
+        assertEquals(expectedData, person.formattedData());
+    }
 }
