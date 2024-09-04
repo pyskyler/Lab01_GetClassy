@@ -18,6 +18,8 @@ public class ProductReader {
 
         String id, name, description;
         double cost;
+        Product product;
+        ArrayList<Product> products = new ArrayList<>();
 
         try
         {
@@ -49,10 +51,6 @@ public class ProductReader {
                 }
                 reader.close(); // must close the file to seal it and flush buffer
 
-                // Print header
-                System.out.printf("\n%-8s%-15s%-25s%-8s", "ID #", "Name", "Description", "Cost");
-                System.out.print("\n===============================================");
-
                 // Now process the lines in the arrayList
                 // Split the line into the fields by using split with a comma
                 // use trim to remove leading and trailing spaces
@@ -66,11 +64,13 @@ public class ProductReader {
 
                     if(fields.length == FIELDS_LENGTH)
                     {
-                        id        = fields[0].trim();
-                        name = fields[1].trim();
-                        description     = fields[2].trim();
-                        cost       = Double.parseDouble(fields[3].trim());
-                        System.out.printf("\n%-8s%-15s%-25s%4.2f", id, name, description, cost);
+                        id          = fields[0].trim();
+                        name        = fields[1].trim();
+                        description = fields[2].trim();
+                        cost        = Double.parseDouble(fields[3].trim());
+
+                        product = new Product(id, name, description, cost);
+                        products.add(product);
                     }
                     else
                     {
@@ -96,6 +96,14 @@ public class ProductReader {
         {
             e.printStackTrace();
         }
+        // Print header
+        System.out.printf("\n%-8s%-15s%-30s%-8s", "ID #", "Name", "Description", "Cost");
+        System.out.print("\n==========================================================\n");
+
+        for (Product p : products) {
+            System.out.println(p.formattedData());
+        }
+
 
     }
 }

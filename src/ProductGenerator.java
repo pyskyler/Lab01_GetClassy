@@ -11,12 +11,12 @@ import static java.nio.file.StandardOpenOption.CREATE;
 public class ProductGenerator {
 
     public static void main(String[] args) {
-        ArrayList<String> persons = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<>();
         String id;
         String Name;
         String title;
         double cost;
-        String product;
+        Product product;
 
         String filename;
 
@@ -30,8 +30,8 @@ public class ProductGenerator {
             title = SafeInput.getNonZeroLenString(in, "What is this product's description?");
             cost = SafeInput.getDouble(in, "What is this product's cost?");
 
-            product = String.format("%s, %s, %s, %6.2f", id, Name, title, cost);
-            persons.add(product);
+            product = new Product(id, Name, title, cost);
+            products.add(product);
 
             addAnotherProduct = SafeInput.getYNConfirm(in, "Do you have another product to add?");
         } while (addAnotherProduct);
@@ -51,8 +51,9 @@ public class ProductGenerator {
 
             // Finally can write the file LOL!
 
-            for (String p : persons) {
-                writer.write(p, 0, p.length());  // stupid syntax for write rec
+            for (Product p : products) {
+                String pCsv = p.toCSV();
+                writer.write(pCsv, 0, pCsv.length());  // stupid syntax for write rec
                 // 0 is where to start (1st char) the write
                 // rec. length() is how many chars to write (all)
                 writer.newLine();  // adds the new line
